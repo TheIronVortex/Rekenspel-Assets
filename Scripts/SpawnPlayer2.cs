@@ -5,23 +5,25 @@ using UnityEngine;
 public class SpawnPlayer2 : MonoBehaviour
 {
 
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject playerTwo;
     [SerializeField] private KeyCode spawnKey;
+    [SerializeField] private GameObject playerOne;
       
     void Start()
     {
-        player.SetActive(false);
+        playerTwo.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(spawnKey) && player.activeSelf == false) 
+        if (Input.GetKeyDown(spawnKey) && playerTwo.activeSelf == false) 
         {
-            player.SetActive(true);
+            playerTwo.transform.position = playerOne.transform.position;
+            playerTwo.SetActive(true);
         }
-        else if (Input.GetKeyDown(spawnKey) && player.activeSelf == true) 
+        else if (Input.GetKeyDown(spawnKey) && playerTwo.activeSelf == true) 
         {
-            player.SetActive(false);
+            playerTwo.SetActive(false);
         }
     }
 }

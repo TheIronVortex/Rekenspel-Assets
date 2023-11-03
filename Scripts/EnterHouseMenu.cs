@@ -11,6 +11,14 @@ public class Door : MonoBehaviour
     public Renderer renderE;
     public Renderer renderBox;
     public Renderer renderText;
+    public SetPositionPlayer setPositionPlayer;
+    public GameObject playerSprite;
+
+    public void SetString(string playerPosition, string sceneToLoad)
+    {
+        PlayerPrefs.SetString(playerPosition, sceneToLoad);
+        Debug.Log("Lemon");
+    }
 
     private void Update()
     {
@@ -51,10 +59,13 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void LoadScene()
+    public void LoadScene()
     {
         if (sceneToLoad != null)
         {
+
+            SetString("PlayerPosition", sceneToLoad); // Call the function to set PlayerPrefs       
+            Debug.Log("Cheese");
             SceneManager.LoadScene(sceneToLoad);
         }
     }

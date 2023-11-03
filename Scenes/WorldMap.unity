@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &111074261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111074263}
+  - component: {fileID: 111074262}
+  m_Layer: 0
+  m_Name: setPlayerPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &111074262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111074261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f388ca32453e62840bd7992753c9d654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSprite: {fileID: 2109366922}
+--- !u!4 &111074263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111074261}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4066586, y: -0.89061755, z: -0.16371843}
+  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &127617437
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +652,7 @@ Transform:
   m_GameObject: {fileID: 282041630}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23769024, y: 0, z: -11.2}
+  m_LocalPosition: {x: -0.19999999, y: 0, z: -11.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -719,6 +764,8 @@ MonoBehaviour:
   renderE: {fileID: 2131120338}
   renderBox: {fileID: 263357675}
   renderText: {fileID: 1392678034}
+  setPositionPlayer: {fileID: 111074262}
+  playerSprite: {fileID: 2109366922}
 --- !u!61 &295458292
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1193,7 +1240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -3527605833568485315, guid: 3bc76d989f70ee747b7cf65bfb1fcd6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -1634,7 +1681,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -3527605833568485315, guid: 3bc76d989f70ee747b7cf65bfb1fcd6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1710,7 +1757,7 @@ Transform:
   m_GameObject: {fileID: 1160559021}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1288493, y: 0, z: -0.2}
+  m_LocalPosition: {x: -0.057142843, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1745,8 +1792,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ceddb05c658d545897f19c73c42dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1448567874}
+  playerTwo: {fileID: 1448567874}
   spawnKey: 112
+  playerOne: {fileID: 2109366922}
 --- !u!4 &1233919723
 Transform:
   m_ObjectHideFlags: 0
@@ -12378,7 +12426,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -13122,7 +13170,7 @@ Transform:
   m_GameObject: {fileID: 1605047723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23769024, y: 0, z: -11.2}
+  m_LocalPosition: {x: -0.19999999, y: 0, z: -11.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13343,6 +13391,8 @@ MonoBehaviour:
   renderE: {fileID: 1636218809}
   renderBox: {fileID: 876810424}
   renderText: {fileID: 1643883737}
+  setPositionPlayer: {fileID: 111074262}
+  playerSprite: {fileID: 2109366922}
 --- !u!1001 &1734822330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13561,6 +13611,8 @@ MonoBehaviour:
   renderE: {fileID: 1618540172}
   renderBox: {fileID: 1734822332}
   renderText: {fileID: 2129267234}
+  setPositionPlayer: {fileID: 111074262}
+  playerSprite: {fileID: 2109366922}
 --- !u!61 &1781559267
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14126,6 +14178,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4359540973044688192, guid: 3fcc03ca1a7de8e4dbef80abb21a7851, type: 3}
+    - target: {fileID: 3626916397498700004, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -14136,7 +14192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3768163
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14316,6 +14372,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6824415717617526585, guid: 31dbd03679770b440a46f6b0d8c67fe8, type: 3}
     - target: {fileID: 3626916397498700004, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -14329,7 +14389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.098564066
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 0ef01b31e2ab15746873eff082df5bee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14596,6 +14656,7 @@ SceneRoots:
   - {fileID: 282041633}
   - {fileID: 1605047725}
   - {fileID: 1160559023}
+  - {fileID: 111074263}
   - {fileID: 127617439}
   - {fileID: 1798798384}
   - {fileID: 2021452043}
