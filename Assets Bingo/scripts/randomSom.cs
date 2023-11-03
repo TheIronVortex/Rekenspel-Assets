@@ -5,88 +5,147 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 public class EquationGenerator : MonoBehaviour
 {
     public TMP_Text equationText;
 
     public int result;
+    public int lastResult;
 
     public int operand1;
-
     public int operand2;
-
     public bool isAddition;
 
-    private List<int> remainingResults = new List<int>();
+    private List<int> remainingResults = new();
+    private List<int> seenResults = new();
+
+    private float equationDisplayTime = 15f; // tijd om de volgende som te laten zien
+    private float displayStartTime = 0f; // tijd sinds wanneer de som er is
+    private bool youHaveWonFlag = false; // check de win, word nog niks mee gedaan
+
+    public void SetYouHaveWonFlag()
+    {
+        youHaveWonFlag = true;
+    }
 
     private void Start()
     {
         InitializeRemainingResults();
-        InvokeRepeating("GenerateEquation", 0f, 10f);
+        GenerateEquation();
     }
+
+    public void YouHaveWon()
+    {
+        if (equationText != null)
+        {
+            equationText.text = "You've won!";
+        }
+    }
+
 
     private void InitializeRemainingResults()
     {
-        for (int i = 0; i <= 1000; i++)
+        for (int i = 0; i <= 10; i++)
         {
             remainingResults.Add(i);
         }
         Shuffle(remainingResults);
     }
 
-
-    public void GenerateEquation()
+    public int GenerateEquation()
     {
         if (equationText == null)
         {
-            Debug.LogError("TMP Text component not assigned. Please assign a TMP Text component to the 'equationText' field in the Inspector.");
-            return;
+            Debug.LogError("TMP Text component not assigned.");
+            return 0;
         }
-
-        // Pop the next result from the shuffled list
-        result = remainingResults[0];
-        remainingResults.RemoveAt(0);
 
         operand1 = UnityEngine.Random.Range(0, 100);
         operand2 = UnityEngine.Random.Range(0, 100);
 
-        // Determine whether to generate an addition or subtraction equation
         isAddition = UnityEngine.Random.Range(0, 2) == 0;
 
-        if (isAddition)
+        result = isAddition ? operand1 + operand2 : operand1 - operand2;
+        result = Mathf.Max(result, 0);
+        return result;
+    }
+
+    private bool checkSeen(int res)
+    {
+        return seenResults.Contains(res);
+    }
+
+    private void addSeen(int res)
+    {
+        if (res < 100 && res > 0 && !checkSeen(res))
         {
-            result = operand1 + operand2;
-        }
-        else
-        {
-            result = operand1 - operand2;
-            // Ensure result doesn't go below 0
-            result = Mathf.Max(result, 0);
+            Debug.Log($"Adding {res}");
+            seenResults.Add(res);
         }
     }
 
+    private void logSeen()
+    {
+        foreach (int res in seenResults)
+        {
+            Debug.Log($"Res: {res}, Seen: {checkSeen(res)}");
+        }
+    }
 
     public void Update()
     {
-        if (result < 100 && result > 0)
+        // Log all seen
+        logSeen();
+
+        if (Time.time - displayStartTime >= equationDisplayTime)
         {
-            if (isAddition)
+            GenerateNewEquation();
+        }
+
+        // Stop updating if length 99
+        if (seenResults.Count >= 99)
+        {
+            return;
+        }
+
+        if (result >= 100 || result <= 0 || (checkSeen(result) && lastResult != result))
+        {
+            GenerateNewEquation();
+        }
+        else if (checkSeen(result))
+        {
+            if (Time.time - displayStartTime < equationDisplayTime)
             {
-                equationText.text = $"{operand1} + {operand2} = ...";
+                Debug.Log($"Showing {result} (last {lastResult}, length {seenResults.Count})");
+                equationText.text = $"{operand1} {(isAddition ? '+' : '-')} {operand2} = {result}";
             }
-            else
-            {
-                equationText.text = $"{operand1} - {operand2} = ...";
-            }
+        }
+
+
+    }
+
+
+
+    private void GenerateNewEquation()
+    {
+        int newResult = GenerateEquation();
+        if (!checkSeen(newResult)) //  kijk of het niewe resultaat nier in de lijst staat
+        {
+            addSeen(newResult); //voeg result toe aan de lijst
+            lastResult = newResult;
+            displayStartTime = Time.time;
+            result = newResult; //  update the resultaar
         }
         else
         {
-            GenerateEquation();
+            // maak niewe som todat hij nog niet bestaat
+            GenerateNewEquation();
         }
     }
 
-    // Fisher-Yates shuffle algorithm to shuffle the list
+
     private void Shuffle(List<int> list)
     {
         int n = list.Count;
